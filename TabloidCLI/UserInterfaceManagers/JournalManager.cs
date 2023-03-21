@@ -30,6 +30,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine(" 3) Add Journal");
             Console.WriteLine(" 4) Edit Journal");
             Console.WriteLine(" 5) Remove Journal");
+            Console.WriteLine(" 6) Note Management");
             Console.WriteLine(" 0) Go Back");
 
             Console.Write("> ");
@@ -119,7 +120,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.Write("Content: ");
             journal.Content = Console.ReadLine();
 
-            Console.Write("Date Created (YYYY-MM-DD): ");
+            Console.Write("Date Created (YYYY-MM-DD HH:MM:SS): ");
             string createDateTimeStr = Console.ReadLine();
             DateTime createDateTime;
             if (DateTime.TryParse(createDateTimeStr, out createDateTime))
