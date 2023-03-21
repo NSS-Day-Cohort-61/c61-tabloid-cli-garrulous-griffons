@@ -9,6 +9,7 @@ namespace TabloidCLI.UserInterfaceManagers
 {
     public class JournalManager : IUserInterfaceManager
     {
+
         private readonly IUserInterfaceManager _parentUI;
         private JournalRepository _journalRepository;
         private string _connectionString;
@@ -21,9 +22,10 @@ namespace TabloidCLI.UserInterfaceManagers
         }
 
 
-
+     
         public IUserInterfaceManager Execute()
         {
+            Console.BackgroundColor = ConsoleColor.Red;
             Console.WriteLine("Journal Menu");
             Console.WriteLine(" 1) List Journal Entries");
             Console.WriteLine(" 2) Journal Details");
@@ -32,6 +34,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine(" 5) Remove Journal");
             Console.WriteLine(" 6) Note Management");
             Console.WriteLine(" 0) Go Back");
+          
 
             Console.Write("> ");
             string choice = Console.ReadLine();
