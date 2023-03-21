@@ -96,11 +96,19 @@ namespace TabloidCLI.UserInterfaceManagers
                     int blogId = int.Parse(Console.ReadLine());
                     Blog selectedBlog = blogUpdateList.FirstOrDefault(b => b.Id == blogId);
 
-                    Console.Write(" New Title: ");
-                    selectedBlog.Title = Console.ReadLine();
+                    Console.Write(" New Title (hit enter to leave unchanged): ");
+                    string title = Console.ReadLine();
+                    if (!string.IsNullOrWhiteSpace(title))
+                    {
+                        selectedBlog.Title = title;
+                    }
 
-                    Console.Write(" New Url: ");
-                    selectedBlog.Url = Console.ReadLine();
+                    Console.Write(" New Url (hit enter to leave unchanged): ");
+                    string url = Console.ReadLine();
+                    if (!string.IsNullOrWhiteSpace(url))
+                    {
+                        selectedBlog.Title = url;
+                    }
 
                     _blogRepository.Update(selectedBlog);
 
