@@ -9,6 +9,7 @@ namespace TabloidCLI.Models
         public string LastName { get; set; }
         public string Bio { get; set; }
         public List<Tag> Tags { get; set; } = new List<Tag>();
+        //testing
 
         public string FullName
         {
