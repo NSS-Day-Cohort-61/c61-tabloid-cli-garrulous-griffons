@@ -48,10 +48,11 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "0":
                     return _parentUI;
                 default:
-                    Console.WriteLine("Invalid Selection");
+                    Console.WriteLine("Invalid Selection yooo");
                     return this;
             }
         }
+
 
         private void List()
         {
