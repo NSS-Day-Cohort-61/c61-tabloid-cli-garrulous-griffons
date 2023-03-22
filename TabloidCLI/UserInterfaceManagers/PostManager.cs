@@ -12,36 +12,21 @@ namespace TabloidCLI.UserInterfaceManagers
     {
         private readonly IUserInterfaceManager _parentUI;
         private PostRepository _postRepository;
+        private AuthorRepository _authorRepository;
+        private BlogRepository _blogRepository;
         private string _connectionString;
+        public int _authorId;
+        public int _blogId;
 
         public PostManager(IUserInterfaceManager parentUI, string connectionString)
         {
             _parentUI = parentUI;
             _postRepository = new PostRepository(connectionString);
+            _authorRepository = new AuthorRepository(connectionString);
+            _blogRepository = new BlogRepository(connectionString);
             _connectionString = connectionString;
         }
 
-        //private readonly IUserInterfaceManager _parentUI;
-        //private AuthorRepository _authorRepository;
-        //private string _connectionString;
-
-        //public AuthorManager(IUserInterfaceManager parentUI, string connectionString)
-        //{
-        //    _parentUI = parentUI;
-        //    _authorRepository = new AuthorRepository(connectionString);
-        //    _connectionString = connectionString;
-        //}
-
-        //private readonly IUserInterfaceManager _parentUI;
-        //private BlogRepository _blogRepository;
-        //private string _connectionString;
-
-        //public BlogManager(IUserInterfaceManager parentUI, string connectionString)
-        //{
-        //    _parentUI = parentUI;
-        //    _blogRepository = new BlogRepository(connectionString);
-        //    _connectionString = connectionString;
-        //}
 
         public IUserInterfaceManager Execute()
         {
@@ -105,21 +90,28 @@ namespace TabloidCLI.UserInterfaceManagers
             DateTime userdate = DateTime.Parse(Console.ReadLine());
             post.PublishDateTime = userdate;
 
-            //List<Author> authors = _authorRepository.GetAll();
-            //foreach (Author author in authors)
-            //{
-            //    Console.Write(author.FirstName, author.LastName);
-            //}
-            //post.Author = Console.ReadLine();
+            List<Author> authors = _authorRepository.GetAll();
+            foreach (Author author in authors)
+            {
+                Console.WriteLine($"{author.Id}: {author.FirstName} {author.LastName}");
+            }
+            Console.Write("Select an author by Id #: ");
+            post.Author = authors[int.Parse(Console.ReadLine())];
 
-            //List<Blog> blog = _blogRepository.GetAll();
-            //foreach (Blog blog in blogs)
-            //{
-            //    Console.Write(blog.Title);
-            //}
-            //post.Blog = Console.ReadLine();
+            List<Blog> blogs = _blogRepository.GetAll();
+            foreach (Blog blog in blogs)
+            {
+                Console.WriteLine($"{blog.Id}: {blog.Title}");
+            }
+            Console.Write("Select a blog by Id #: ");
+            post.Blog = blogs[int.Parse(Console.ReadLine())];
+
 
             _postRepository.Insert(post);
+
+            Console.WriteLine($"{post.Title} has been added and assigned an Id of {post.Id}.");
+            Console.Write("Press any key to continue");
+            Console.ReadKey();
         }
 
         private Post Choose(string prompt = null)
