@@ -235,7 +235,7 @@ namespace TabloidCLI
             foreach (var result in postResults._results)
             {
                 newResults.Add(result);
-                //blah
+                
             }
 
             return newResults;
