@@ -96,7 +96,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 Console.WriteLine($"{author.Id}: {author.FirstName} {author.LastName}");
             }
             Console.Write("Select an author by Id #: ");
-            post.Author = authors[int.Parse(Console.ReadLine())];
+            post.Author = authors[int.Parse(Console.ReadLine()) - 1];
 
             List<Blog> blogs = _blogRepository.GetAll();
             foreach (Blog blog in blogs)
@@ -104,12 +104,12 @@ namespace TabloidCLI.UserInterfaceManagers
                 Console.WriteLine($"{blog.Id}: {blog.Title}");
             }
             Console.Write("Select a blog by Id #: ");
-            post.Blog = blogs[int.Parse(Console.ReadLine())];
+            post.Blog = blogs[int.Parse(Console.ReadLine()) - 1];
 
 
             _postRepository.Insert(post);
 
-            Console.WriteLine($"{post.Title} has been added and assigned an Id of {post.Id}.");
+            Console.WriteLine($"{post.Title} has been added.");
             Console.Write("Press any key to continue");
             Console.ReadKey();
         }
@@ -166,6 +166,26 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 postToEdit.Url = url;
             }
+
+            Console.Write("PublishDateTime (blank to leave unchanged): ");
+            DateTime datetime = DateTime.Parse(Console.ReadLine());
+                postToEdit.PublishDateTime = datetime;
+
+            List<Author> authors = _authorRepository.GetAll();
+            foreach (Author author in authors)
+            {
+                Console.WriteLine($"{author.Id}: {author.FirstName} {author.LastName}");
+            }
+            Console.Write("Update the author by Id # (blank to leave unchanged): ");
+            postToEdit.Author = authors[int.Parse(Console.ReadLine()) - 1];
+
+            List<Blog> blogs = _blogRepository.GetAll();
+            foreach (Blog blog in blogs)
+            {
+                Console.WriteLine($"{blog.Id}: {blog.Title}");
+            }
+            Console.Write("Update the blog by Id #: ");
+            postToEdit.Blog = blogs[int.Parse(Console.ReadLine()) - 1];
 
             _postRepository.Update(postToEdit);
         }
