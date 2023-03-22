@@ -38,7 +38,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     SearchPosts();
                     return this;
                 case "4":
-                    //SearchAll();
+                    SearchAll();
                     return this;
                 case "0":
                     return _parentUI;
@@ -99,21 +99,21 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
-        //private void SearchAll()
-        //{
-        //    Console.Write("Tag> ");
-        //    string tagName = Console.ReadLine();
+        private void SearchAll()
+        {
+            Console.Write("Tag> ");
+            string tagName = Console.ReadLine();
 
-        //    SearchResults<Author> results = _tagRepository.SearchAll(tagName);
+            SearchResults<object> results = _tagRepository.SearchAll(tagName);
 
-        //    if (results.NoResultsFound)
-        //    {
-        //        Console.WriteLine($"No results for {tagName}");
-        //    }
-        //    else
-        //    {
-        //        results.Display();
-        //    }
-        //}
+            if (results.NoResultsFound)
+            {
+                Console.WriteLine($"No results for {tagName}");
+            }
+            else
+            {
+                results.Display();
+            }
+        }
     }
 }
