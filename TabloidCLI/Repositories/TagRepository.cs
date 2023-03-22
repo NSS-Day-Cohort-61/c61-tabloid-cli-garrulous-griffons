@@ -4,7 +4,7 @@ using Microsoft.Data.SqlClient;
 using TabloidCLI.Models;
 using TabloidCLI.Repositories;
 using TabloidCLI.UserInterfaceManagers;
-
+using System.Linq;
 namespace TabloidCLI
 {
     public class TagRepository : DatabaseConnector, IRepository<Tag>
@@ -132,5 +132,118 @@ namespace TabloidCLI
                 }
             }
         }
+
+
+        public SearchResults<Blog> SearchBlogs(string tagName)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT b.id,
+                                               b.Title,
+                                               b.Url
+                                          FROM Blog b
+                                               LEFT JOIN BlogTag bt on b.Id = bt.BlogId
+                                               LEFT JOIN Tag t on t.Id = bt.TagId
+                                         WHERE t.Name LIKE @name";
+                    cmd.Parameters.AddWithValue("@name", $"%{tagName}%");
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    SearchResults<Blog> results = new SearchResults<Blog>();
+                    while (reader.Read())
+                    {
+                       Blog blog = new Blog()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Title = reader.GetString(reader.GetOrdinal("Title")),
+                            Url = reader.GetString(reader.GetOrdinal("Url")),
+                        };
+                        results.Add(blog);
+                    }
+
+                    reader.Close();
+
+                    return results;
+                }
+            }
+        }
+
+        public SearchResults<Post> SearchPosts(string tagName)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT p.id,
+                                               p.Title,
+                                               p.Url
+                                          FROM Post p
+                                               LEFT JOIN PostTag pt on p.Id = pt.PostId
+                                               LEFT JOIN Tag t on t.Id = pt.TagId
+                                         WHERE t.Name LIKE @name";
+                    cmd.Parameters.AddWithValue("@name", $"%{tagName}%");
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    SearchResults<Post> results = new SearchResults<Post>();
+                    while (reader.Read())
+                    {
+                       Post post = new Post()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Title = reader.GetString(reader.GetOrdinal("Title")),
+                            Url = reader.GetString(reader.GetOrdinal("Url")),
+                            PublishDateTime = reader.GetDateTime(reader.GetOrdinal("PublishDateTime"))
+                       };
+                            results.Add(post);
+                    }
+
+                    reader.Close();
+
+                    return results;
+                }
+            }
+        }
+
+        public SearchResults<object> SearchAll(string tagName)
+        {
+
+            // Search for authors
+            SearchResults<Author> authorResults = SearchAuthors(tagName);
+
+            // Search for blogs
+            SearchResults<Blog> blogResults = SearchBlogs(tagName);
+
+            // Search for posts
+            SearchResults<Post> postResults = SearchPosts(tagName);
+
+            // Combine the results into a single SearchResults<t> t
+            SearchResults<object> newResults = new SearchResults<object>();
+
+            foreach (var result in authorResults._results)
+            {
+                newResults.Add(result);
+            }
+
+            foreach (var result in blogResults._results)
+            {
+                newResults.Add(result);
+            }
+
+            foreach (var result in postResults._results)
+            {
+                newResults.Add(result);
+                
+            }
+
+            return newResults;
+        }
+
+    
+
+
+
     }
 }
