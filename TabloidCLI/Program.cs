@@ -1,4 +1,5 @@
-﻿using TabloidCLI.UserInterfaceManagers;
+﻿using TabloidCLI.Repositories;
+using TabloidCLI.UserInterfaceManagers;
 
 namespace TabloidCLI
 {
