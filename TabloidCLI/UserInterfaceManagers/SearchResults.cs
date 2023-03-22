@@ -5,7 +5,8 @@ namespace TabloidCLI.UserInterfaceManagers
 {
     public class SearchResults<T>
     {
-        private List<T> _results = new List<T>();
+        //changed to public
+        public List<T> _results = new List<T>();
 
         public string Title { get; set; } = "Search Results";
 
@@ -16,6 +17,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 return _results.Count == 0;
             }
         }
+
 
         public void Add(T result)
         {

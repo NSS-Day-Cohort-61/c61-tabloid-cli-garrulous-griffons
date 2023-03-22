@@ -4,7 +4,7 @@ using Microsoft.Data.SqlClient;
 using TabloidCLI.Models;
 using TabloidCLI.Repositories;
 using TabloidCLI.UserInterfaceManagers;
-
+using System.Linq;
 namespace TabloidCLI
 {
     public class TagRepository : DatabaseConnector, IRepository<Tag>
@@ -206,6 +206,42 @@ namespace TabloidCLI
                 }
             }
         }
+
+        public SearchResults<object> SearchAll(string tagName)
+        {
+
+            // Search for authors
+            SearchResults<Author> authorResults = SearchAuthors(tagName);
+
+            // Search for blogs
+            SearchResults<Blog> blogResults = SearchBlogs(tagName);
+
+            // Search for posts
+            SearchResults<Post> postResults = SearchPosts(tagName);
+
+            // Combine the results into a single SearchResults<t> t
+            SearchResults<object> newResults = new SearchResults<object>();
+
+            foreach (var result in authorResults._results)
+            {
+                newResults.Add(result);
+            }
+
+            foreach (var result in blogResults._results)
+            {
+                newResults.Add(result);
+            }
+
+            foreach (var result in postResults._results)
+            {
+                newResults.Add(result);
+            }
+
+            return newResults;
+        }
+
+    
+
 
 
     }

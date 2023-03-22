@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace TabloidCLI.Models
 {
@@ -9,6 +10,7 @@ namespace TabloidCLI.Models
         public string LastName { get; set; }
         public string Bio { get; set; }
         public List<Tag> Tags { get; set; } = new List<Tag>();
+
         //testing
 
         public string FullName
@@ -18,7 +20,7 @@ namespace TabloidCLI.Models
                 return $"{FirstName} {LastName}";
             }
         }
-
+    
         public override string ToString()
         {
             return FullName;
