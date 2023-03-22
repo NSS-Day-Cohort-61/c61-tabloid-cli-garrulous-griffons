@@ -47,7 +47,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void List()
         {
-            Console.WriteLine("yo");
+
             throw new NotImplementedException();
         }
 
