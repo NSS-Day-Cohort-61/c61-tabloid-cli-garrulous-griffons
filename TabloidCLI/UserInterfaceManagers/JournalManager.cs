@@ -25,14 +25,13 @@ namespace TabloidCLI.UserInterfaceManagers
      
         public IUserInterfaceManager Execute()
         {
-            Console.BackgroundColor = ConsoleColor.Red;
+           
             Console.WriteLine("Journal Menu");
             Console.WriteLine(" 1) List Journal Entries");
             Console.WriteLine(" 2) Journal Details");
             Console.WriteLine(" 3) Add Journal");
             Console.WriteLine(" 4) Edit Journal");
             Console.WriteLine(" 5) Remove Journal");
-            Console.WriteLine(" 6) Note Management");
             Console.WriteLine(" 0) Go Back");
           
 

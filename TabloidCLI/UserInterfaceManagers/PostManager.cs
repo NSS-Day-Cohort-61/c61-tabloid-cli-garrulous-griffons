@@ -43,8 +43,15 @@ namespace TabloidCLI.UserInterfaceManagers
             switch (choice)
             {
                 case "1":
-                    List();
-                    return this;
+                    Post chosenPost = List();
+                    if (chosenPost == null)
+                    {
+                        return this;
+                    }
+                    else
+                    {
+                        return new PostDetailManager(this, _connectionString, chosenPost.Id);
+                    }
                 case "2":
                     Add();
                     return this;
@@ -65,14 +72,19 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
-        private void List()
+        private Post List()
         {
-            List<Post> posts = _postRepository.GetAll();
-            foreach (Post post in posts)
+
+            List<Post> postsForDetails = _postRepository.GetAll();
+            foreach (Post p in postsForDetails)
             {
-                Console.WriteLine(post.Title);
-                Console.WriteLine(post.Url);
+                Console.WriteLine($" {p.Id}) {p.Title} : {p.Url}");
             }
+            Console.WriteLine("");
+            Console.Write("Enter the Id # of the post you would like to see ");
+            int id = int.Parse(Console.ReadLine());
+            Post post = _postRepository.Get(id);
+            return post;
         }
 
         private void Add()
@@ -82,7 +94,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
             Console.Write("Title: ");
             post.Title = Console.ReadLine();
-
+           
             Console.Write("URL: ");
             post.Url = Console.ReadLine();
 

@@ -12,5 +12,6 @@ namespace TabloidCLI.Models
         public DateTime PublishDateTime { get; set; }
         public Author Author { get; set; }
         public Blog Blog { get; set; }
+        public Tag Tag { get; set; }
     }
 }
