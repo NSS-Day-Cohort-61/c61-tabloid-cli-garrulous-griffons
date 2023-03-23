@@ -34,10 +34,10 @@ namespace TabloidCLI.UserInterfaceManagers
             Blog blog = _blogRepository.Get(_blogId);
             Console.WriteLine($"{blog.Title} Details");
             Console.WriteLine(" 1) View");
-            //Console.WriteLine(" 2) View Blog Posts");
-            Console.WriteLine(" 2) Add Tag");
-            Console.WriteLine(" 3) Remove Tag");
-            Console.WriteLine(" 0) Go Back");
+            Console.WriteLine(" 2) View Blog Posts");
+            Console.WriteLine(" 3) Add Tag");
+            Console.WriteLine(" 4) Remove Tag");
+            Console.WriteLine(" 5) Go Back");
 
             Console.Write("> ");
             string choice = Console.ReadLine();
@@ -46,16 +46,16 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "1":
                     View();
                     return this;
-                //case "2":
-                //    ViewBlogPosts();
-                //    return this;
                 case "2":
-                    AddTag();
+                    ViewBlogPosts();
                     return this;
                 case "3":
+                    AddTag();
+                    return this;
+                case "4":
                     RemoveTag();
                     return this;
-                case "0":
+                case "5":
                     return _parentUI;
                 default:
                     Console.WriteLine("Invalid Selection");
@@ -76,15 +76,16 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine();
         }
 
-        //private void ViewBlogPosts()
-        //{
-        //    List<Post> posts = _postRepository.GetByAuthor(_blogId);
-        //    foreach (Post post in posts)
-        //    {
-        //        Console.WriteLine(post);
-        //    }
-        //    Console.WriteLine();
-        //}
+        private void ViewBlogPosts()
+        {
+            List<Post> posts = _postRepository.GetByBlog(_blogId);
+            foreach (Post post in posts)
+            {
+                Console.WriteLine($"Title: {post.Title}");
+                Console.WriteLine($"Author: {post.Author}");
+            }
+            Console.WriteLine();
+        }
 
         public void AddTag()
         {
