@@ -54,7 +54,7 @@ namespace TabloidCLI.UserInterfaceManagers
                         Console.WriteLine($" {b.Id}) {b.Title} : {b.Url}");
                     }
                     Console.WriteLine("");
-                    Console.Write("Enter the number of the blog you would like to see. ");
+                    Console.WriteLine("Enter the number of the blog you would like to see. ");
                     int id = int.Parse(Console.ReadLine());
 
                     Blog blog = _blogRepository.Get(id);
