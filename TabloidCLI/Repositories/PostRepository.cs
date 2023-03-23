@@ -79,7 +79,26 @@ namespace TabloidCLI.Repositories
 
         public void Insert(Post post)
         {
+<<<<<<< Updated upstream
             throw new NotImplementedException();
+=======
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO Post (Title, Url, PublishDateTime, AuthorId, BlogId )
+                                                     VALUES (@title, @url, @publishdatetime, @authorid, @postid)";
+                    cmd.Parameters.AddWithValue("@title", post.Title);
+                    cmd.Parameters.AddWithValue("@url", post.Url);
+                    cmd.Parameters.AddWithValue("@publishdatetime", post.PublishDateTime);
+                    cmd.Parameters.AddWithValue("@authorid", post.Author.Id);
+                    cmd.Parameters.AddWithValue("@postid", post.Blog.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+>>>>>>> Stashed changes
         }
 
         public void Update(Post post)
