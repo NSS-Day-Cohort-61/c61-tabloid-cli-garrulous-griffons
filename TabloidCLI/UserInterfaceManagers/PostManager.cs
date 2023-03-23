@@ -35,7 +35,6 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine(" 2) Add Post");
             Console.WriteLine(" 3) Edit Post");
             Console.WriteLine(" 4) Remove Post");
-            Console.WriteLine(" 5) Note Management");
             Console.WriteLine(" 0) Return to Main Menu");
 
             Console.Write("> ");
@@ -60,9 +59,6 @@ namespace TabloidCLI.UserInterfaceManagers
                     return this;
                 case "4":
                     Remove();
-                    return this;
-                case "5":
-                    //remove();
                     return this;
                 case "0":
                     return _parentUI;

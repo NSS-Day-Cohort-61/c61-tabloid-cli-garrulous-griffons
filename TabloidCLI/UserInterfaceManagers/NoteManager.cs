@@ -77,7 +77,7 @@ namespace TabloidCLI
             Console.Write("Content: ");
             note.Content = Console.ReadLine();
 
-            note.CreateDateTime = new DateTime();
+            note.CreateDateTime = DateTime.Now;
 
           
             note.PostId = _postId;
@@ -88,15 +88,24 @@ namespace TabloidCLI
         private void Remove()
         {
             Console.WriteLine("Which note would you like to delete?");
+            Console.WriteLine("0) Return");
             List<Note> notes = _noteRepository.GetAll();
             foreach (Note note in notes)
             {
-                Console.WriteLine($"{note.Id + 1}) {note.Title}: {note.Content} ({note.CreateDateTime})");
+                Console.WriteLine($"{note.Id}) {note.Title}: {note.Content} ({note.CreateDateTime})");
             }
-            
-            int noteToDelete = int.Parse(Console.ReadLine()) - 1;
 
+            int noteToDelete = int.Parse(Console.ReadLine());
+
+            if (noteToDelete > 0 && noteToDelete < notes.Count)
+            {
              _noteRepository.Delete(noteToDelete);
+            }
+            else
+            {
+                Console.WriteLine();
+
+            }
            
             
         }
