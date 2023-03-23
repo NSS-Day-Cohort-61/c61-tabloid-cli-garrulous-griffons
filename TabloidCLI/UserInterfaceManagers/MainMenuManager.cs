@@ -10,42 +10,6 @@ namespace TabloidCLI.UserInterfaceManagers
         public IUserInterfaceManager Execute()
         {
             Console.WriteLine("The Garrulous Griffons Would Like to Welcome You to Our App!");
-
-
-            Console.WriteLine("What Background Color Would you like?");
-            Console.WriteLine(" 1) Blue");
-            Console.WriteLine(" 2) Magenta");
-            Console.WriteLine(" 3) Red");
-            Console.WriteLine(" 4) Dark Green");
-            Console.WriteLine(" 5) Dark Yellow");
-            Console.WriteLine(" 6) Dark Cyan");
-            Console.WriteLine(" 0) Exit");
-
-            Console.Write("> ");
-            string colorChoice = Console.ReadLine();
-            switch (colorChoice)
-            {
-
-                case "1": Console.BackgroundColor = ConsoleColor.Blue;
-                    break;
-                case "2":  Console.BackgroundColor = ConsoleColor.Magenta;
-                    break;
-                case "3": Console.BackgroundColor = ConsoleColor.Red;
-                    break;
-                case "4": Console.BackgroundColor = ConsoleColor.DarkGreen;
-                    break;
-                case "5": Console.BackgroundColor = ConsoleColor.DarkYellow;
-                    break;
-                case "6": Console.BackgroundColor = ConsoleColor.DarkCyan;
-                    break;
-                case "0":
-                    Console.WriteLine("Good bye");
-                    return null;
-                default:
-                    Console.WriteLine("Invalid Selection");
-                    return this;
-            }
-
             Console.WriteLine("Main Menu");
 
             Console.WriteLine(" 1) Journal Management");
@@ -54,6 +18,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine(" 4) Post Management");
             Console.WriteLine(" 5) Tag Management");
             Console.WriteLine(" 6) Search by Tag");
+            Console.WriteLine(" 7) Choose a background color");
             Console.WriteLine(" 0) Exit");
 
             Console.Write("> ");
@@ -67,6 +32,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "4": return new PostManager(this, CONNECTION_STRING);
                 case "5": return new TagManager(this, CONNECTION_STRING);
                 case "6": return new SearchManager(this, CONNECTION_STRING);
+                case "7": return new ColorManager(this);
                 case "0":
                     Console.WriteLine("Good bye");
                     return null;
