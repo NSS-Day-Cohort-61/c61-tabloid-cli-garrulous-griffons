@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TabloidCLI.Models
 {
-    public class Post
+    public class Post : ISearch
     {
         public int Id { get; set; }
         public string Title { get; set; }

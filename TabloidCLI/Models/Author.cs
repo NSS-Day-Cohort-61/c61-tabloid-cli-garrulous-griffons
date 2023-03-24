@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace TabloidCLI.Models
 {
-    public class Author
+    public class Author : ISearch
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

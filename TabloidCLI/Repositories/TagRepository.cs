@@ -95,7 +95,7 @@ namespace TabloidCLI
             }
         }
 
-        public SearchResults<Author> SearchAuthors(string tagName)
+        public SearchResults<ISearch> SearchAuthors(string tagName)
         {
             using (SqlConnection conn = Connection)
             {
@@ -113,7 +113,7 @@ namespace TabloidCLI
                     cmd.Parameters.AddWithValue("@name", $"%{tagName}%");
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    SearchResults<Author> results = new SearchResults<Author>();
+                    SearchResults<ISearch> results = new SearchResults<ISearch>();
                     while (reader.Read())
                     {
                         Author author = new Author()
@@ -134,7 +134,7 @@ namespace TabloidCLI
         }
 
 
-        public SearchResults<Blog> SearchBlogs(string tagName)
+        public SearchResults<ISearch> SearchBlogs(string tagName)
         {
             using (SqlConnection conn = Connection)
             {
@@ -151,7 +151,7 @@ namespace TabloidCLI
                     cmd.Parameters.AddWithValue("@name", $"%{tagName}%");
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    SearchResults<Blog> results = new SearchResults<Blog>();
+                    SearchResults<ISearch> results = new SearchResults<ISearch>();
                     while (reader.Read())
                     {
                        Blog blog = new Blog()
@@ -170,7 +170,7 @@ namespace TabloidCLI
             }
         }
 
-        public SearchResults<Post> SearchPosts(string tagName)
+        public SearchResults<ISearch> SearchPosts(string tagName)
         {
             using (SqlConnection conn = Connection)
             {
@@ -187,7 +187,7 @@ namespace TabloidCLI
                     cmd.Parameters.AddWithValue("@name", $"%{tagName}%");
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    SearchResults<Post> results = new SearchResults<Post>();
+                    SearchResults<ISearch> results = new SearchResults<ISearch>();
                     while (reader.Read())
                     {
                        Post post = new Post()
@@ -207,20 +207,20 @@ namespace TabloidCLI
             }
         }
 
-        public SearchResults<object> SearchAll(string tagName)
+        public SearchResults<ISearch> SearchAll(string tagName)
         {
 
             // Search for authors
-            SearchResults<Author> authorResults = SearchAuthors(tagName);
+            SearchResults<ISearch> authorResults = SearchAuthors(tagName);
 
             // Search for blogs
-            SearchResults<Blog> blogResults = SearchBlogs(tagName);
+            SearchResults<ISearch> blogResults = SearchBlogs(tagName);
 
             // Search for posts
-            SearchResults<Post> postResults = SearchPosts(tagName);
+            SearchResults<ISearch> postResults = SearchPosts(tagName);
 
             // Combine the results into a single SearchResults<t> t
-            SearchResults<object> newResults = new SearchResults<object>();
+            SearchResults<ISearch> newResults = new SearchResults<ISearch>();
 
             foreach (var result in authorResults._results)
             {
@@ -240,9 +240,6 @@ namespace TabloidCLI
 
             return newResults;
         }
-
-    
-
 
 
     }
