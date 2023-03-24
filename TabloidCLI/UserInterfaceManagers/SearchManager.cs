@@ -53,7 +53,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.Write("Tag> ");
             string tagName = Console.ReadLine();
 
-            SearchResults<Blog> results = _tagRepository.SearchBlogs(tagName);
+            SearchResults<ISearch> results = _tagRepository.SearchBlogs(tagName);
 
             if (results.NoResultsFound)
             {
@@ -70,7 +70,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.Write("Tag> ");
             string tagName = Console.ReadLine();
 
-            SearchResults<Author> results = _tagRepository.SearchAuthors(tagName);
+            SearchResults<ISearch> results = _tagRepository.SearchAuthors(tagName);
 
             if (results.NoResultsFound)
             {
@@ -87,7 +87,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.Write("Tag> ");
             string tagName = Console.ReadLine();
 
-            SearchResults<Post> results = _tagRepository.SearchPosts(tagName);
+            SearchResults<ISearch> results = _tagRepository.SearchPosts(tagName);
 
             if (results.NoResultsFound)
             {
@@ -104,7 +104,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.Write("Tag> ");
             string tagName = Console.ReadLine();
 
-            SearchResults<object> results = _tagRepository.SearchAll(tagName);
+            SearchResults<ISearch> results = _tagRepository.SearchAll(tagName);
 
             if (results.NoResultsFound)
             {
